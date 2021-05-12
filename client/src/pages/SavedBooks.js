@@ -7,8 +7,14 @@ import Auth from '../utils/auth';
 import { QUERY_ME } from '../utils/queries';
 import { removeBookId } from '../utils/localStorage';
 
-
 const SavedBooks = () => {
+
+  window.onload = function() {
+    if(!window.location.hash) {
+        window.location = window.location + '#loaded';
+        window.location.reload();
+    }
+}
 
   const [deleteBook] = useMutation(REMOVE_BOOK);
 
@@ -34,6 +40,7 @@ const SavedBooks = () => {
 
       // upon success, remove book's id from localStorage
       removeBookId(bookId);
+      window.location.reload();
     } catch (err) {
       console.error(err);
     }
@@ -78,5 +85,6 @@ const SavedBooks = () => {
     </>
   );
 };
+
 
 export default SavedBooks;
